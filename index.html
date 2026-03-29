@@ -108,45 +108,60 @@
   .skill-tag:hover { border-color: var(--accent); color: var(--accent); background: rgba(201,168,76,0.06); }
   .skill-tag.accent { border-color: rgba(201,168,76,0.35); color: var(--accent3); background: rgba(201,168,76,0.07); }
 
-  /* TABLEAU DE COMPETENCES — upload zone */
-  .tableau-upload-section { margin-top: 2.5rem; }
-  .tableau-upload-label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem; }
-  .tableau-drop-zone {
-  border: 1px dashed rgba(201,168,76,0.4);
-  border-radius: 4px;
-  padding: 2rem;
-  min-height: 430px;
-  text-align: center;
-  cursor: pointer;
-  background: rgba(201,168,76,0.03);
-  transition: background 0.2s, border-color 0.2s;
-  position: relative;
+/* TABLEAU DE COMPETENCES — lien PDF */
+.tableau-upload-section { margin-top: 2.5rem; }
+.tableau-upload-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.8rem;
+}
+
+.tableau-pdf-link {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  min-height: 430px;
+  padding: 2rem;
+  text-align: center;
+  text-decoration: none;
+  border: 1px dashed rgba(201,168,76,0.4);
+  border-radius: 4px;
+  background: rgba(201,168,76,0.03);
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
 }
-.skills-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  min-height: 100%;
+
+.tableau-pdf-link:hover {
+  background: rgba(201,168,76,0.07);
+  border-color: var(--accent);
+  transform: translateY(-2px);
 }
-  .tableau-drop-zone:hover, .tableau-drop-zone.drag-over { background: rgba(201,168,76,0.07); border-color: var(--accent); }
-  .tableau-drop-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
-  .tableau-drop-icon { font-size: 1.8rem; margin-bottom: 0.6rem; }
-  .tableau-drop-text { font-size: 0.75rem; color: var(--muted); line-height: 1.7; }
-  .tableau-drop-text span { color: var(--accent); }
-  .tableau-file-preview {
-    display: none; margin-top: 0.8rem; background: var(--surface);
-    border: 1px solid var(--border); border-radius: 3px; padding: 0.8rem 1rem;
-    font-size: 0.75rem; color: var(--text);
-    align-items: center; gap: 0.7rem;
-  }
-  .tableau-file-preview.show { display: flex; }
-  .tableau-file-preview .file-icon { font-size: 1.1rem; }
-  .tableau-file-preview .file-name { flex: 1; color: var(--accent3); }
-  .tableau-file-preview .file-remove { cursor: pointer; color: var(--muted); font-size: 1rem; transition: color 0.2s; }
-  .tableau-file-preview .file-remove:hover { color: #e05c5c; }
+
+.tableau-pdf-icon {
+  font-size: 2rem;
+  margin-bottom: 0.8rem;
+}
+
+.tableau-pdf-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.tableau-pdf-desc {
+  font-size: 0.75rem;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 320px;
+}
+
+.tableau-pdf-desc span {
+  color: var(--accent);
+}
 
   /* PROJECTS */
   #projets { padding-bottom: 6rem; }
@@ -799,20 +814,13 @@
     <!-- TABLEAU DE COMPETENCES -->
     <div class="tableau-upload-section">
       <div class="tableau-upload-label">// Tableau de compétences</div>
-      <div class="tableau-drop-zone" id="dropZone">
-        <input type="file" id="fileInput" accept=".pdf,.xlsx,.xls,.docx,.doc,.csv,.png,.jpg,.jpeg">
-        <div class="tableau-drop-icon">📋</div>
-        <div class="tableau-drop-text">
-          Glissez votre fichier ici<br>
-          ou <span>cliquez pour parcourir</span><br>
-          <small style="color:rgba(107,122,153,0.6); font-size:0.65rem;">PDF, Excel, Word, CSV, Image</small>
+      <a href="./tableau_competences.pdf" target="_blank" class="tableau-pdf-link">
+        <div class="tableau-pdf-icon">📋</div>
+        <div class="tableau-pdf-title">Tableau de compétences</div>
+        <div class="tableau-pdf-desc">
+          Cliquer pour ouvrir le fichier <span>tableau_competences.pdf</span>
         </div>
-      </div>
-      <div class="tableau-file-preview" id="filePreview">
-        <span class="file-icon">📄</span>
-        <span class="file-name" id="fileName">—</span>
-        <span class="file-remove" id="fileRemove" title="Supprimer">✕</span>
-      </div>
+      </a>
     </div>
   </div>
 </section>
@@ -1248,22 +1256,6 @@
   }, { threshold: 0.15 });
   stageItems.forEach(s => stageObs.observe(s));
 
-  // Upload tableau de compétences
-  const dropZone = document.getElementById('dropZone');
-  const fileInput = document.getElementById('fileInput');
-  const filePreview = document.getElementById('filePreview');
-  const fileName = document.getElementById('fileName');
-  const fileRemove = document.getElementById('fileRemove');
-
-  function showFile(name) {
-    fileName.textContent = name;
-    filePreview.classList.add('show');
-  }
-  function clearFile() {
-    fileInput.value = '';
-    filePreview.classList.remove('show');
-    fileName.textContent = '—';
-  }
 
   fileInput.addEventListener('change', (e) => {
     if (e.target.files[0]) showFile(e.target.files[0].name);
