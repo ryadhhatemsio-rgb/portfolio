@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ryadh Hatem — Portfolio BTS SIO SISR</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #07090f;
+    --surface: #0d1120;
+    --surface2: #131928;
+    --border: #1e2a42;
+    --accent: #c9a84c;
+    --accent2: #2a4d8f;
+    --accent3: #e8c97a;
+    --text: #eef0f6;
+    --muted: #6b7a99;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Mono', monospace; overflow-x: hidden; }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 1000; opacity: 0.35;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 3rem; background: rgba(7,9,15,0.9);
+    backdrop-filter: blur(14px); border-bottom: 1px solid var(--border);
+  }
+  .nav-brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+  .nav-logo-svg { width: 36px; height: 36px; flex-shrink: 0; }
+  .nav-logo-text { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem; color: var(--accent); letter-spacing: 0.05em; }
+  .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* SECTIONS */
+  section { min-height: 100vh; padding: 8rem 3rem 5rem; max-width: 1100px; margin: 0 auto; position: relative; }
+  .section-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; opacity: 0.8; }
+  h1, h2 { font-family: 'Syne', sans-serif; font-weight: 800; line-height: 1.05; }
+
+  /* HERO */
+  #accueil { display: flex; flex-direction: column; justify-content: center; padding-top: 10rem; padding-bottom: 6rem; }
+  .hero-grid-bg {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%);
+    opacity: 0.3;
+  }
+  .hero-glow { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(201,168,76,0.09) 0%, transparent 70%); top: -100px; left: -200px; pointer-events: none; }
+  .hero-tag { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent3); border: 1px solid rgba(232,201,122,0.3); padding: 0.35rem 0.9rem; border-radius: 2px; margin-bottom: 2rem; width: fit-content; }
+  .hero-tag::before { content: ''; width: 6px; height: 6px; background: var(--accent3); border-radius: 50%; animation: blink 1.5s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+  .hero-name { font-size: clamp(3.5rem, 8vw, 7rem); color: var(--text); margin-bottom: 0.3rem; animation: fadeUp 0.8s ease both; }
+  .hero-name span { color: var(--accent); }
+  .hero-subtitle { font-family: 'Syne', sans-serif; font-size: clamp(1rem, 2.5vw, 1.6rem); font-weight: 600; color: var(--muted); margin-bottom: 2rem; animation: fadeUp 0.8s 0.15s ease both; }
+  .hero-desc { max-width: 500px; font-size: 0.85rem; line-height: 1.8; color: var(--muted); margin-bottom: 3rem; animation: fadeUp 0.8s 0.3s ease both; }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp 0.8s 0.45s ease both; }
+
+  .btn { display: inline-block; padding: 0.75rem 1.8rem; font-family: 'DM Mono', monospace; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; border-radius: 2px; cursor: pointer; transition: all 0.25s; border: none; }
+  .btn-primary { background: var(--accent); color: var(--bg); font-weight: 500; }
+  .btn-primary:hover { background: #f5d98a; box-shadow: 0 0 28px rgba(201,168,76,0.45); }
+  .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ABOUT */
+  #apropos { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+  .about-title { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1.5rem; }
+  .about-text { font-size: 0.85rem; line-height: 1.9; color: var(--muted); margin-bottom: 1.2rem; }
+
+  /* parcours timeline */
+  .parcours-timeline { margin-top: 1.5rem; position: relative; padding-left: 1.5rem; }
+  .parcours-timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent); }
+  .parcours-item { position: relative; margin-bottom: 1rem; padding: 1rem 1.2rem; background: var(--surface); border: 1px solid var(--border); border-radius: 3px; opacity: 0; transform: translateX(-16px); transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.2s; }
+  .parcours-item.visible { opacity: 1; transform: translateX(0); }
+  .parcours-item:hover { border-color: var(--accent); }
+  .parcours-item::before { content: ''; position: absolute; left: -1.88rem; top: 1.1rem; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); border: 2px solid var(--bg); }
+  .parcours-year { font-size: 0.65rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.25rem; }
+  .parcours-label { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.88rem; }
+  .parcours-sub { font-size: 0.72rem; color: var(--muted); margin-top: 0.2rem; }
+
+  .about-contact-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 1.5rem; margin-top: 2rem; }
+  .contact-item { display: flex; align-items: center; gap: 0.8rem; font-size: 0.78rem; color: var(--muted); padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
+  .contact-item:last-child { border-bottom: none; }
+  .contact-item .icon { color: var(--accent); font-size: 1rem; }
+  .contact-item a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .contact-item a:hover { color: var(--accent); }
+
+  /* STACK TECHNIQUE — tags sans pourcentage */
+  .skills-panel { display: flex; flex-direction: column; gap: 0.8rem; }
+  .skills-group-label { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-top: 0.8rem; margin-bottom: 0.4rem; }
+  .skills-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-tag {
+    font-size: 0.72rem; letter-spacing: 0.06em;
+    padding: 0.4rem 0.85rem; border-radius: 3px;
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--text); transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  .skill-tag:hover { border-color: var(--accent); color: var(--accent); background: rgba(201,168,76,0.06); }
+  .skill-tag.accent { border-color: rgba(201,168,76,0.35); color: var(--accent3); background: rgba(201,168,76,0.07); }
+
+  /* TABLEAU DE COMPETENCES — upload zone */
+  .tableau-upload-section { margin-top: 2.5rem; }
+  .tableau-upload-label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem; }
+  .tableau-drop-zone {
+  border: 1px dashed rgba(201,168,76,0.4);
+  border-radius: 4px;
+  padding: 2rem;
+  min-height: 430px;
+  text-align: center;
+  cursor: pointer;
+  background: rgba(201,168,76,0.03);
+  transition: background 0.2s, border-color 0.2s;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.skills-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  min-height: 100%;
+}
+  .tableau-drop-zone:hover, .tableau-drop-zone.drag-over { background: rgba(201,168,76,0.07); border-color: var(--accent); }
+  .tableau-drop-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+  .tableau-drop-icon { font-size: 1.8rem; margin-bottom: 0.6rem; }
+  .tableau-drop-text { font-size: 0.75rem; color: var(--muted); line-height: 1.7; }
+  .tableau-drop-text span { color: var(--accent); }
+  .tableau-file-preview {
+    display: none; margin-top: 0.8rem; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 3px; padding: 0.8rem 1rem;
+    font-size: 0.75rem; color: var(--text);
+    align-items: center; gap: 0.7rem;
+  }
+  .tableau-file-preview.show { display: flex; }
+  .tableau-file-preview .file-icon { font-size: 1.1rem; }
+  .tableau-file-preview .file-name { flex: 1; color: var(--accent3); }
+  .tableau-file-preview .file-remove { cursor: pointer; color: var(--muted); font-size: 1rem; transition: color 0.2s; }
+  .tableau-file-preview .file-remove:hover { color: #e05c5c; }
+
+  /* PROJECTS */
+  #projets { padding-bottom: 6rem; }
+  .projects-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; }
+  .projects-title { font-size: clamp(2.5rem, 5vw, 4rem); }
+  .projects-count { font-size: 0.7rem; letter-spacing: 0.15em; color: var(--muted); text-transform: uppercase; }
+  .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .project-card { background: var(--surface); padding: 2rem; position: relative; cursor: default; transition: background 0.2s; overflow: hidden; }
+  .project-card:hover { background: var(--surface2); }
+  .project-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+  .project-card:hover::after { transform: scaleX(1); }
+  .project-num { font-size: 0.65rem; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 1rem; opacity: 0.7; }
+  .project-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+  .project-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; margin-bottom: 0.6rem; }
+  .project-desc { font-size: 0.75rem; line-height: 1.7; color: var(--muted); }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+  .tag { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.55rem; border-radius: 2px; background: rgba(201,168,76,0.08); color: var(--accent); border: 1px solid rgba(201,168,76,0.2); }
+
+  /* STAGES */
+  #stages { padding-bottom: 6rem; }
+  .stages-title { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 3rem; }
+  .stage-timeline { position: relative; padding-left: 2rem; }
+  .stage-timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent); }
+  .stage-item { position: relative; padding: 2rem; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; margin-bottom: 1.5rem; opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease, border-color 0.2s, box-shadow 0.2s; }
+  .stage-item.visible { opacity: 1; transform: translateY(0); }
+  .stage-item:nth-child(2) { transition-delay: 0.18s; }
+  .stage-item:hover { border-color: var(--accent); box-shadow: 0 0 30px rgba(201,168,76,0.08); }
+  .stage-item::before { content: ''; position: absolute; left: -2.45rem; top: 2rem; width: 10px; height: 10px; background: var(--accent); border-radius: 50%; border: 2px solid var(--bg); box-shadow: 0 0 10px rgba(201,168,76,0.5); }
+  .stage-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.8rem; }
+  .stage-period { font-size: 0.68rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; background: rgba(201,168,76,0.08); padding: 0.25rem 0.7rem; border: 1px solid rgba(201,168,76,0.2); border-radius: 2px; }
+  .stage-location { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.08em; }
+  .stage-company { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.15rem; margin-bottom: 0.6rem; }
+  .stage-missions { font-size: 0.78rem; color: var(--muted); line-height: 1.8; }
+  .stage-missions ul { list-style: none; padding: 0; }
+  .stage-missions ul li::before { content: '→ '; color: var(--accent); opacity: 0.7; }
+
+  /* COMPETENCES */
+  #competences { padding-bottom: 6rem; }
+  .comp-title { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 3rem; }
+  .comp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .comp-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 4px; padding: 2rem; position: relative;
+    /* overflow visible so the number sits above, not clipped */
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .comp-card:hover { border-color: var(--accent2); transform: translateY(-3px); }
+  /* number moved to TOP, above the card content, not overlapping */
+  .comp-card-num {
+    display: block;
+    font-size: 0.62rem; letter-spacing: 0.25em;
+    font-family: 'DM Mono', monospace; font-weight: 400;
+    color: rgba(201,168,76,0.4);
+    margin-bottom: 0.8rem;
+  }
+  .comp-card-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent2); margin-bottom: 0.5rem; }
+  .comp-card-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; margin-bottom: 0.8rem; line-height: 1.3; }
+  .comp-card-items { list-style: none; font-size: 0.75rem; color: var(--muted); line-height: 1.9; }
+  .comp-card-items li::before { content: '→ '; color: var(--accent); opacity: 0.6; }
+  .comp-card-status { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent3); margin-top: 1rem; }
+  .comp-card-status::before { content: ''; width: 5px; height: 5px; background: var(--accent3); border-radius: 50%; animation: blink 1.5s infinite; }
+
+  /* VEILLE TECHNOLOGIQUE */
+  #veille { padding-bottom: 6rem; }
+  .veille-title { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 0.5rem; }
+  .veille-subtitle { font-size: 0.8rem; color: var(--muted); margin-bottom: 3rem; line-height: 1.6; }
+
+  .veille-hero {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .veille-hero::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+  }
+  .veille-hero-eyebrow {
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 0.8rem; opacity: 0.8;
+  }
+  .veille-hero-title {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.6rem;
+    margin-bottom: 0.8rem; line-height: 1.2;
+  }
+  .veille-hero-title span { color: var(--accent); }
+  .veille-hero-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.85; max-width: 700px; }
+
+  .veille-principe {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;
+  }
+
+  .veille-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
+    padding: 1.8rem; transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .veille-card:hover { border-color: var(--accent); box-shadow: 0 0 24px rgba(201,168,76,0.07); }
+  .veille-card-icon { font-size: 1.6rem; margin-bottom: 0.8rem; }
+  .veille-card-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; margin-bottom: 0.6rem; }
+  .veille-card-text { font-size: 0.78rem; color: var(--muted); line-height: 1.8; }
+
+  .veille-usages {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
+    padding: 2rem;
+  }
+  .veille-usages-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 1.2rem; }
+  .veille-usage-list { display: flex; flex-direction: column; gap: 0.8rem; }
+  .veille-usage-item {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 1rem; background: var(--surface2); border-radius: 3px;
+    border: 1px solid var(--border); transition: border-color 0.2s;
+  }
+  .veille-usage-item:hover { border-color: rgba(201,168,76,0.3); }
+  .veille-usage-icon {
+    font-size: 1.2rem; flex-shrink: 0; margin-top: 0.1rem;
+    width: 2rem; text-align: center;
+  }
+  .veille-usage-content {}
+  .veille-usage-label { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.85rem; margin-bottom: 0.25rem; }
+  .veille-usage-desc { font-size: 0.75rem; color: var(--muted); line-height: 1.7; }
+
+  /* CONTACT */
+  #contact { min-height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+  .contact-title { font-size: clamp(3rem, 7vw, 6rem); margin-bottom: 1rem; }
+  .contact-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 2rem; max-width: 420px; line-height: 1.7; }
+  .contact-info-row { display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; font-size: 0.75rem; color: var(--muted); margin-bottom: 2rem; }
+  .contact-info-row span { display: flex; align-items: center; gap: 0.4rem; }
+  .contact-info-row a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .contact-info-row a:hover { color: var(--accent); }
+  .contact-links { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-bottom: 3rem; }
+
+  footer { border-top: 1px solid var(--border); padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; font-size: 0.7rem; color: var(--muted); letter-spacing: 0.08em; }
+  .section-divider { max-width: 1100px; margin: 0 auto; border: none; border-top: 1px solid var(--border); }
+
+  @media (max-width: 900px) {
+    .nav-links { gap: 1rem; }
+    .nav-links li:nth-child(n+6) { display: none; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    section { padding: 6rem 1.5rem 4rem; }
+    #apropos { grid-template-columns: 1fr; gap: 3rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .comp-grid { grid-template-columns: 1fr; }
+    .veille-principe { grid-template-columns: 1fr; }
+  }
+
+    .veille-followup {
+    margin-top: 2rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .veille-followup::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    opacity: 0.9;
+  }
+
+  .veille-followup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  .veille-followup-eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.45rem;
+    opacity: 0.85;
+  }
+
+  .veille-followup-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    line-height: 1.3;
+  }
+
+  .veille-followup-title span {
+    color: var(--accent);
+  }
+
+  .veille-followup-desc {
+    font-size: 0.76rem;
+    color: var(--muted);
+    line-height: 1.75;
+    max-width: 720px;
+    margin-top: 0.55rem;
+  }
+
+  .veille-source-badges {
+    display: flex;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .veille-source-badge {
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.6rem;
+    border-radius: 2px;
+    background: rgba(201,168,76,0.08);
+    color: var(--accent3);
+    border: 1px solid rgba(201,168,76,0.18);
+  }
+
+  .veille-watch-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1.9fr;
+    gap: 1.5rem;
+    margin-bottom: 1.6rem;
+  }
+
+  .veille-watch-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 1.2rem;
+  }
+
+  .veille-watch-card-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .veille-watch-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .veille-watch-list li {
+    font-size: 0.72rem;
+    color: var(--muted);
+    line-height: 1.65;
+    padding-left: 0.9rem;
+    position: relative;
+  }
+
+  .veille-watch-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--accent);
+  }
+
+  .veille-feed-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .veille-feed-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  .veille-feed-meta {
+    font-size: 0.64rem;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .veille-feed-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .veille-feed-item {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 1rem 1rem 0.95rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .veille-feed-item:hover {
+    border-color: rgba(201,168,76,0.35);
+    transform: translateY(-2px);
+  }
+
+  .veille-feed-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.65rem;
+  }
+
+  .veille-feed-tags {
+    display: flex;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .veille-feed-tag,
+  .veille-feed-source {
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.22rem 0.5rem;
+    border-radius: 2px;
+    border: 1px solid var(--border);
+  }
+
+  .veille-feed-tag {
+    color: var(--accent);
+    background: rgba(201,168,76,0.08);
+    border-color: rgba(201,168,76,0.2);
+  }
+
+  .veille-feed-source {
+    color: var(--muted);
+    background: rgba(255,255,255,0.02);
+  }
+
+  .veille-feed-date {
+    font-size: 0.64rem;
+    color: var(--muted);
+  }
+
+  .veille-feed-item-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.84rem;
+    line-height: 1.45;
+    margin-bottom: 0.45rem;
+  }
+
+  .veille-feed-item-text {
+    font-size: 0.73rem;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  .veille-feed-note {
+    margin-top: 1rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid rgba(201,168,76,0.16);
+    background: rgba(201,168,76,0.04);
+    border-radius: 3px;
+    font-size: 0.7rem;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  @media (max-width: 768px) {
+    .veille-watch-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .veille-zt-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.veille-zt-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1.6rem;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.veille-zt-block:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 0 24px rgba(201,168,76,0.07);
+}
+
+.veille-zt-num {
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.8rem;
+  opacity: 0.85;
+}
+
+.veille-zt-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 0.7rem;
+  line-height: 1.35;
+}
+
+.veille-zt-text {
+  font-size: 0.75rem;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.veille-zt-focus {
+  margin-top: 2rem;
+  background: linear-gradient(180deg, rgba(201,168,76,0.05), rgba(42,77,143,0.04));
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1.8rem;
+}
+
+.veille-zt-focus-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.veille-zt-points {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.veille-zt-points li {
+  font-size: 0.75rem;
+  color: var(--muted);
+  line-height: 1.75;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.veille-zt-points li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  opacity: 0.85;
+}
+
+.veille-zt-sources {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.veille-zt-chip {
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.6rem;
+  border-radius: 2px;
+  background: rgba(201,168,76,0.08);
+  color: var(--accent3);
+  border: 1px solid rgba(201,168,76,0.18);
+}
+
+@media (max-width: 768px) {
+  .veille-zt-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.veille-zt-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.veille-zt-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent3);
+}
+
+.veille-zt-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px rgba(201,168,76,0.6);
+  animation: ztPulse 1.4s infinite;
+}
+
+@keyframes ztPulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.25; transform: scale(0.8); }
+}
+
+.veille-zt-block-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.8rem;
+}
+
+.veille-zt-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.veille-zt-date::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent3);
+  animation: ztPulse 1.4s infinite;
+}
+
+.veille-zt-focus-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent3);
+}
+
+.veille-zt-focus-meta::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px rgba(201,168,76,0.6);
+  animation: ztPulse 1.4s infinite;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#accueil" class="nav-brand">
+    <svg class="nav-logo-svg" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 2L4 8v10c0 7.5 5.5 13.5 14 16 8.5-2.5 14-8.5 14-16V8L18 2z" fill="rgba(201,168,76,0.12)" stroke="#c9a84c" stroke-width="1.5"/>
+      <text x="18" y="23" text-anchor="middle" font-family="'Syne',sans-serif" font-weight="800" font-size="11" fill="#c9a84c">RH</text>
+    </svg>
+    <span class="nav-logo-text">Ryadh Hatem</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#accueil">Accueil</a></li>
+    <li><a href="#apropos">Profil</a></li>
+    <li><a href="#projets">Projets</a></li>
+    <li><a href="#stages">Stages</a></li>
+    <li><a href="#competences">Compétences</a></li>
+    <li><a href="#veille">Veille</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="accueil">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-tag">BTS SIO · Option SISR</div>
+  <h1 class="hero-name">Ryadh<br><span>Hatem</span></h1>
+  <div class="hero-subtitle">Systèmes, Réseaux &amp; Cybersécurité</div>
+  <p class="hero-desc">
+    Étudiant en BTS SIO option SISR, passionné par l'administration des infrastructures réseau,
+    la sécurité des systèmes et l'automatisation. En recherche d'opportunités pour mettre en pratique
+    mes compétences techniques acquises en formation.
+  </p>
+  <div class="hero-cta">
+    <a href="#projets" class="btn btn-primary">Voir mes projets</a>
+    <a href="#contact" class="btn btn-outline">Me contacter</a>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ABOUT -->
+<section id="apropos">
+  <div>
+    <div class="section-label">// 01 — À propos</div>
+    <h2 class="about-title">Mon<br>Parcours</h2>
+    <p class="about-text">
+      Actuellement en BTS SIO option SISR, je me spécialise dans l'administration des systèmes
+      et réseaux informatiques. Mon parcours m'a permis de développer une solide base technique
+      en infrastructure, virtualisation et sécurité.
+    </p>
+    <p class="about-text">
+      Je m'intéresse particulièrement à la cybersécurité des infrastructures réseau et à la supervision
+      des systèmes en production. Mon objectif est d'évoluer vers un poste d'administrateur
+      systèmes et réseaux, avec une spécialisation en sécurité.
+    </p>
+
+    <div class="parcours-timeline">
+      <div class="parcours-item">
+        <div class="parcours-year">2023 – 2025</div>
+        <div class="parcours-label">BTS SIO — Option SISR</div>
+        <div class="parcours-sub">Formation en systèmes, réseaux et cybersécurité</div>
+      </div>
+      <div class="parcours-item">
+        <div class="parcours-year">Juin 2025</div>
+        <div class="parcours-label">Stage — Etude Plus · Livry-Gargan</div>
+        <div class="parcours-sub">Administration systèmes et support utilisateurs</div>
+      </div>
+      <div class="parcours-item">
+        <div class="parcours-year">Jan – Mar 2026</div>
+        <div class="parcours-label">Stage — Mairie de Sevran</div>
+        <div class="parcours-sub">Infrastructure réseau et support informatique</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STACK TECHNIQUE sans pourcentages -->
+  <div class="skills-panel">
+
+    <!-- TABLEAU DE COMPETENCES -->
+    <div class="tableau-upload-section">
+      <div class="tableau-upload-label">// Tableau de compétences</div>
+      <div class="tableau-drop-zone" id="dropZone">
+        <input type="file" id="fileInput" accept=".pdf,.xlsx,.xls,.docx,.doc,.csv,.png,.jpg,.jpeg">
+        <div class="tableau-drop-icon">📋</div>
+        <div class="tableau-drop-text">
+          Glissez votre fichier ici<br>
+          ou <span>cliquez pour parcourir</span><br>
+          <small style="color:rgba(107,122,153,0.6); font-size:0.65rem;">PDF, Excel, Word, CSV, Image</small>
+        </div>
+      </div>
+      <div class="tableau-file-preview" id="filePreview">
+        <span class="file-icon">📄</span>
+        <span class="file-name" id="fileName">—</span>
+        <span class="file-remove" id="fileRemove" title="Supprimer">✕</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- PROJECTS -->
+<section id="projets">
+  <div class="projects-header">
+    <div>
+      <div class="section-label">// 02 — Projets</div>
+      <h2 class="projects-title">Réalisations</h2>
+    </div>
+    <div class="projects-count">06 projets</div>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-num">01</div><div class="project-icon">🖥️</div>
+      <div class="project-title">Configuration de serveurs</div>
+      <div class="project-desc">Installation et configuration de serveurs Windows Server 2019 et Linux sur VirtualBox.</div>
+      <div class="project-tags"><span class="tag">Windows Server</span><span class="tag">Debian</span><span class="tag">VirtualBox</span></div>
+    </div>
+    <div class="project-card">
+      <div class="project-num">02</div><div class="project-icon">🏛️</div>
+      <div class="project-title">Active Directory &amp; GPO</div>
+      <div class="project-desc">Mise en place d'un domaine Active Directory et configuration des stratégies de groupe.</div>
+      <div class="project-tags"><span class="tag">AD DS</span><span class="tag">GPO</span><span class="tag">DNS</span></div>
+    </div>
+    <div class="project-card">
+      <div class="project-num">03</div><div class="project-icon">🛡️</div>
+      <div class="project-title">Sécurité réseau</div>
+      <div class="project-desc">Configuration d'un firewall avec pfSense et mise en place d'un système RAID 5.</div>
+      <div class="project-tags"><span class="tag">pfSense</span><span class="tag">RAID 5</span><span class="tag">Firewall</span></div>
+    </div>
+    <div class="project-card">
+      <div class="project-num">04</div><div class="project-icon">🔀</div>
+      <div class="project-title">Réseaux Cisco</div>
+      <div class="project-desc">Configuration de switchs, création de VLAN et routage inter-VLAN avec Cisco Packet Tracer.</div>
+      <div class="project-tags"><span class="tag">Cisco</span><span class="tag">VLAN</span><span class="tag">Packet Tracer</span></div>
+    </div>
+    <div class="project-card">
+      <div class="project-num">05</div><div class="project-icon">📡</div>
+      <div class="project-title">Supervision réseau</div>
+      <div class="project-desc">Mise en place d'un système de supervision avec Centreon pour le monitoring en temps réel.</div>
+      <div class="project-tags"><span class="tag">Centreon</span><span class="tag">SNMP</span><span class="tag">Monitoring</span></div>
+    </div>
+    <div class="project-card">
+      <div class="project-num">06</div><div class="project-icon">⚙️</div>
+      <div class="project-title">Dev &amp; Bases de données</div>
+      <div class="project-desc">Création de scripts en Python et gestion de bases de données SQL.</div>
+      <div class="project-tags"><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">Scripting</span></div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- STAGES -->
+<section id="stages">
+  <div class="section-label">// 03 — Expériences</div>
+  <h2 class="stages-title">Stages</h2>
+  <div class="stage-timeline">
+    <div class="stage-item">
+      <div class="stage-header">
+        <div class="stage-period">2 – 27 Juin 2025</div>
+        <div class="stage-location">📍 Livry-Gargan (93)</div>
+      </div>
+      <div class="stage-company">Etude Plus</div>
+      <div class="stage-missions"><ul>
+        <li>Assistance et support aux utilisateurs (helpdesk)</li>
+        <li>Maintenance du parc informatique</li>
+        <li>Installation et configuration de postes de travail</li>
+        <li>Gestion des accès et des droits utilisateurs</li>
+      </ul></div>
+    </div>
+    <div class="stage-item">
+      <div class="stage-header">
+        <div class="stage-period">19 Janvier – 13 Mars 2026</div>
+        <div class="stage-location">📍 Sevran (93)</div>
+      </div>
+      <div class="stage-company">Mairie de Sevran</div>
+      <div class="stage-missions"><ul>
+        <li>Support informatique et maintenance du parc municipal</li>
+        <li>Administration réseau et gestion des équipements</li>
+        <li>Participation aux projets d'infrastructure SI</li>
+        <li>Assistance aux agents sur les outils numériques</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- COMPETENCES -->
+<section id="competences">
+  <div class="section-label">// 04 — BTS SIO</div>
+  <h2 class="comp-title">Compétences</h2>
+  <div class="comp-grid">
+    <div class="comp-card">
+      <span class="comp-card-num">— 01</span>
+      <div class="comp-card-label">Bloc de compétences</div>
+      <div class="comp-card-title">Gérer le patrimoine informatique</div>
+      <ul class="comp-card-items">
+        <li>Recensement des ressources numériques</li>
+        <li>Exploitation des normes et standards</li>
+        <li>Gestion des sauvegardes</li>
+      </ul>
+    </div>
+    <div class="comp-card">
+      <span class="comp-card-num">— 02</span>
+      <div class="comp-card-label">Bloc de compétences</div>
+      <div class="comp-card-title">Garantir la sécurité des données</div>
+      <ul class="comp-card-items">
+        <li>Gestion des identités et des accès</li>
+        <li>Détection des vulnérabilités</li>
+        <li>Application des correctifs</li>
+      </ul>
+      <div class="comp-card-status">En cours d'acquisition</div>
+    </div>
+    <div class="comp-card">
+      <span class="comp-card-num">— 03</span>
+      <div class="comp-card-label">Spécialisation SISR</div>
+      <div class="comp-card-title">Cybersécurité des infrastructures</div>
+      <ul class="comp-card-items">
+        <li>Sécurisation des systèmes</li>
+        <li>Hardening réseau</li>
+        <li>Analyse des menaces</li>
+      </ul>
+      <div class="comp-card-status">En cours de développement</div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- VEILLE TECHNOLOGIQUE -->
+<section id="veille">
+  <div class="section-label">// 05 — Veille technologique</div>
+  <h2 class="veille-title">Zero Trust</h2>
+  <p class="veille-subtitle">Nouvelle approche de la sécurité des systèmes d'information</p>
+
+  <div class="veille-hero">
+    <div class="veille-hero-eyebrow">Concept clé · Cybersécurité</div>
+    <div class="veille-hero-title">« Ne jamais faire confiance,<br><span>toujours vérifier »</span></div>
+    <p class="veille-hero-desc">
+      Le modèle Zero Trust remet en question le périmètre de sécurité traditionnel. Là où les architectures classiques
+      faisaient confiance aux utilisateurs et appareils situés à l'intérieur du réseau, le Zero Trust part du principe
+      qu'aucun acteur — interne ou externe — ne doit être considéré comme fiable par défaut.
+      Chaque accès doit être authentifié, autorisé et vérifié en continu.
+    </p>
+  </div>
+
+  <div class="veille-principe">
+    <div class="veille-card">
+      <div class="veille-card-icon">🔐</div>
+      <div class="veille-card-title">Principe fondamental</div>
+      <p class="veille-card-text">
+        Le Zero Trust suppose que la menace peut provenir aussi bien de l'extérieur que de l'intérieur du réseau.
+        Même un utilisateur déjà connecté doit prouver son identité et ses droits à chaque accès à une ressource.
+        Le réseau n'est plus une zone de confiance — c'est l'identité qui devient le nouveau périmètre.
+      </p>
+    </div>
+    <div class="veille-card">
+      <div class="veille-card-icon">📐</div>
+      <div class="veille-card-title">Les 3 piliers du Zero Trust</div>
+      <p class="veille-card-text">
+        <strong style="color:var(--accent3)">Vérifier explicitement</strong> — toujours authentifier et autoriser sur la base de tous les points de données disponibles.<br><br>
+        <strong style="color:var(--accent3)">Moindre privilège</strong> — limiter l'accès des utilisateurs au strict nécessaire, juste à temps et juste assez.<br><br>
+        <strong style="color:var(--accent3)">Supposer la compromission</strong> — minimiser le rayon d'explosion, chiffrer les flux, analyser en continu.
+      </p>
+    </div>
+  </div>
+
+  <div class="veille-usages">
+    <div class="veille-usages-title">Utilisation en entreprise</div>
+    <div class="veille-usage-list">
+      <div class="veille-usage-item">
+        <div class="veille-usage-icon">🌐</div>
+        <div class="veille-usage-content">
+          <div class="veille-usage-label">VPN nouvelle génération & accès réseau Zero Trust (ZTNA)</div>
+          <div class="veille-usage-desc">
+            Le VPN traditionnel donne un accès large au réseau interne une fois connecté. Le ZTNA remplace cette approche :
+            l'utilisateur n'accède qu'aux applications spécifiquement autorisées, jamais à l'ensemble du réseau.
+            Des solutions comme Zscaler, Cloudflare Access ou Microsoft Entra ID appliquent ce principe.
+          </div>
+        </div>
+      </div>
+      <div class="veille-usage-item">
+        <div class="veille-usage-icon">🔑</div>
+        <div class="veille-usage-content">
+          <div class="veille-usage-label">Authentification forte (MFA) & gestion des identités (IAM)</div>
+          <div class="veille-usage-desc">
+            L'authentification multifacteur (MFA) est un pilier du Zero Trust : un mot de passe seul ne suffit plus.
+            L'accès est conditionné à la vérification de plusieurs facteurs (code OTP, biométrie, certificat).
+            Les solutions IAM (Identity and Access Management) centralisent et contrôlent tous les droits d'accès.
+          </div>
+        </div>
+      </div>
+      <div class="veille-usage-item">
+        <div class="veille-usage-icon">🔍</div>
+        <div class="veille-usage-content">
+          <div class="veille-usage-label">Microsegmentation du réseau</div>
+          <div class="veille-usage-desc">
+            En découpant le réseau en zones isolées, on limite la propagation d'une attaque.
+            Même si un attaquant pénètre un segment, il ne peut pas se déplacer latéralement vers d'autres ressources.
+            Les VLAN et les firewalls de nouvelle génération jouent un rôle clé dans cette architecture.
+          </div>
+        </div>
+      </div>
+      <div class="veille-usage-item">
+        <div class="veille-usage-icon">📊</div>
+        <div class="veille-usage-content">
+          <div class="veille-usage-label">Surveillance continue & SIEM</div>
+          <div class="veille-usage-desc">
+            Le Zero Trust exige une surveillance permanente des comportements utilisateurs et des flux réseau.
+            Les outils SIEM (Security Information and Event Management) collectent et analysent les logs en temps réel
+            pour détecter les anomalies et réagir rapidement aux incidents.
+          </div>
+        </div>
+      </div>
+
+      <div class="veille-followup">
+  <div class="veille-followup-header">
+    <div>
+      <div class="veille-followup-eyebrow">Veille appliquée · Zero Trust</div>
+      <div class="veille-followup-title">
+        Complément de veille : <span>évolution du modèle Zero Trust</span>
+      </div>
+      <p class="veille-followup-desc">
+        Cette veille me permet de suivre l’évolution du Zero Trust comme modèle global de sécurité.
+        J’ai retenu les éléments les plus utiles pour comprendre son origine, ses principes,
+        ses composants techniques, son lien avec le ZTNA et son intérêt dans les environnements
+        cloud, hybrides et en mobilité.
+      </p>
+    </div>
+
+    <div class="veille-source-badges">
+      <span class="veille-source-badge">Clusif</span>
+      <span class="veille-source-badge">NIST</span>
+      <span class="veille-source-badge">CISA</span>
+      <span class="veille-source-badge">Stormshield</span>
+      <span class="veille-source-badge">Fortinet</span>
+    </div>
+  </div>
+
+  <div class="veille-watch-grid">
+    <div class="veille-watch-card">
+      <div class="veille-watch-card-title">Axes de veille Zero Trust</div>
+      <ul class="veille-watch-list">
+        <li>Définition du modèle Zero Trust et rupture avec la sécurité périmétrique classique.</li>
+        <li>Évolution du rôle de l’identité comme nouveau périmètre de sécurité.</li>
+        <li>Usage du contrôle d’accès conditionnel, de la MFA, du SSO et de l’IAM.</li>
+        <li>Microsegmentation, visibilité, journalisation continue et réduction des mouvements latéraux.</li>
+        <li>Différences entre Zero Trust, ZTNA, VPN traditionnel et architectures hybrides.</li>
+      </ul>
+    </div>
+
+    <div class="veille-watch-card">
+      <div class="veille-watch-card-title">Pourquoi ce sujet est important</div>
+      <ul class="veille-watch-list">
+        <li>Le Zero Trust répond aux nouveaux usages : cloud, mobilité, télétravail et accès distribués.</li>
+        <li>Il limite la confiance implicite accordée aux comptes, terminaux et flux réseau.</li>
+        <li>Il améliore la protection des ressources critiques grâce au moindre privilège et à l’analyse continue du contexte.</li>
+        <li>Il aide à mieux contenir une compromission en supposant qu’une attaque peut déjà être en cours.</li>
+        <li>Il constitue aujourd’hui une référence forte pour l’évolution des architectures de cybersécurité.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="veille-zt-head">
+    <div class="veille-feed-title">Points clés observés dans ma veille Zero Trust</div>
+    <div class="veille-zt-live">
+      <span class="veille-zt-live-dot"></span>
+      <span>veille active</span>
+    </div>
+  </div>
+
+  <div class="veille-zt-grid">
+    <div class="veille-zt-block">
+      <div class="veille-zt-block-top">
+        <div class="veille-zt-num">ZT — 01</div>
+        <div class="veille-zt-date">Oct. 2023 · Clusif</div>
+      </div>
+      <div class="veille-zt-title">Le Zero Trust est un changement de modèle, pas un simple produit</div>
+      <div class="veille-zt-text">
+        Le document du Clusif montre que le Zero Trust ne se résume pas à une solution de sécurité
+        vendue par un éditeur. Il s’agit d’une transformation globale de l’approche sécurité, qui touche
+        à la gouvernance, aux accès, aux identités, aux appareils, aux données et à la supervision.
+      </div>
+    </div>
+
+    <div class="veille-zt-block">
+      <div class="veille-zt-block-top">
+        <div class="veille-zt-num">ZT — 02</div>
+        <div class="veille-zt-date">2019 · NIST</div>
+      </div>
+      <div class="veille-zt-title">La confiance n’est jamais implicite et doit être réévaluée en permanence</div>
+      <div class="veille-zt-text">
+        La formalisation du NIST place au centre du Zero Trust une idée essentielle :
+        aucun utilisateur, appareil ou service ne doit être considéré comme fiable par défaut.
+        Chaque accès doit être authentifié, autorisé et contrôlé selon le contexte réel de la session.
+      </div>
+    </div>
+
+    <div class="veille-zt-block">
+      <div class="veille-zt-block-top">
+        <div class="veille-zt-num">ZT — 03</div>
+        <div class="veille-zt-date">2010 · Forrester</div>
+      </div>
+      <div class="veille-zt-title">Le modèle est né pour dépasser les limites de la sécurité périmétrique</div>
+      <div class="veille-zt-text">
+        L’approche historique du “réseau de confiance” devient insuffisante lorsque les utilisateurs,
+        les applications et les données sortent du périmètre interne. L’idée du Zero Trust apparaît
+        pour répondre à cette perte de frontière fixe entre l’interne et l’externe.
+      </div>
+    </div>
+
+    <div class="veille-zt-block">
+      <div class="veille-zt-block-top">
+        <div class="veille-zt-num">ZT — 04</div>
+        <div class="veille-zt-date">2021 · CISA</div>
+      </div>
+      <div class="veille-zt-title">Le Zero Trust repose sur plusieurs piliers interdépendants</div>
+      <div class="veille-zt-text">
+        Le modèle de maturité du CISA insiste sur cinq grands piliers : identité, appareils,
+        réseau, applications et données. Le point important est que ces piliers doivent être reliés
+        par la visibilité, l’analyse, l’automatisation et la gouvernance.
+      </div>
+    </div>
+
+    <div class="veille-zt-block">
+      <div class="veille-zt-block-top">
+        <div class="veille-zt-num">ZT — 05</div>
+        <div class="veille-zt-date">2023 · Stormshield</div>
+      </div>
+      <div class="veille-zt-title">Le ZTNA renforce l’accès distant en vérifiant l’utilisateur et le poste</div>
+      <div class="veille-zt-text">
+        Les contenus Stormshield mettent en avant le rôle du ZTNA dans le travail hybride :
+        accès sécurisé aux ressources, contrôle du terminal, MFA, politiques de moindre privilège
+        et microsegmentation. Cela montre comment les principes Zero Trust se traduisent en usage concret.
+      </div>
+    </div>
+
+    <div class="veille-zt-block">
+      <div class="veille-zt-block-top">
+        <div class="veille-zt-num">ZT — 06</div>
+        <div class="veille-zt-date">2025 · Fortinet</div>
+      </div>
+      <div class="veille-zt-title">La microsegmentation et la vérification continue réduisent la surface d’attaque</div>
+      <div class="veille-zt-text">
+        Les ressources consultées montrent que la segmentation fine, l’évaluation continue du risque,
+        l’EDR, la gestion des endpoints et le moindre privilège empêchent un attaquant de se déplacer
+        librement dans le système d’information après une compromission initiale.
+      </div>
+    </div>
+  </div>
+
+  <div class="veille-zt-focus">
+    <div class="veille-zt-focus-meta">synthèse récente</div>
+    <div class="veille-zt-focus-title">Ce que je retiens de ma veille sur le Zero Trust</div>
+    <ul class="veille-zt-points">
+      <li>Le Zero Trust répond directement à l’essor du cloud, du télétravail, des accès distants et des environnements hybrides.</li>
+      <li>L’identité devient le point central de la décision d’accès, mais elle doit toujours être associée au contexte, au terminal et au niveau de risque.</li>
+      <li>Le ZTNA est une brique utile du Zero Trust, mais il ne suffit pas à lui seul à couvrir toute la stratégie de sécurité.</li>
+      <li>La microsegmentation, le moindre privilège et la surveillance continue servent à limiter la propagation d’une attaque.</li>
+      <li>Le Zero Trust ne remplace pas automatiquement tous les VPN, mais il pousse à revoir leur usage et à mieux contrôler les accès.</li>
+      <li>La mise en œuvre doit être progressive, avec des quick wins comme la MFA, puis une montée en maturité sur les identités, les équipements, les données et la gouvernance.</li>
+      <li>Le Zero Trust est à la fois un projet technique, un projet d’architecture et un projet d’organisation.</li>
+    </ul>
+
+    <div class="veille-zt-sources">
+      <span class="veille-zt-chip">Forrester · 2010</span>
+      <span class="veille-zt-chip">NIST · 2019</span>
+      <span class="veille-zt-chip">CISA · 2021</span>
+      <span class="veille-zt-chip">Clusif · 2023</span>
+      <span class="veille-zt-chip">Stormshield · 2023</span>
+      <span class="veille-zt-chip">Fortinet · 2025</span>
+    </div>
+  </div>
+
+  <div class="veille-feed-note">
+    Cette veille montre que le Zero Trust est devenu une approche majeure pour sécuriser les accès,
+    les identités, les appareils et les ressources critiques. Les dates retenues permettent aussi de
+    montrer l’évolution du concept : origine du modèle, formalisation, maturité, puis déclinaisons
+    concrètes comme le ZTNA.
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">// 06 — Contact</div>
+  <h2 class="contact-title">Travaillons<br><span style="color:var(--accent)">ensemble</span></h2>
+  <p class="contact-sub">
+    Disponible pour des opportunités dans le domaine des systèmes, réseaux et cybersécurité.
+    N'hésitez pas à me contacter !
+  </p>
+  <div class="contact-info-row">
+    <span>✉ <a href="mailto:ryadh.hatem.sio@gmail.com">ryadh.hatem.sio@gmail.com</a></span>
+    <span>📞 <a href="tel:0749347322">07 49 34 73 22</a></span>
+  </div>
+  <div class="contact-links">
+    <a href="mailto:ryadh.hatem.sio@gmail.com" class="btn btn-primary">✉ Envoyer un e-mail</a>
+    <a href="https://linkedin.com" target="_blank" class="btn btn-outline">in LinkedIn</a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 — Ryadh Hatem · BTS SIO SISR</span>
+  <span style="color:var(--accent)">systèmes &amp; réseaux</span>
+</footer>
+
+<script>
+  // Parcours timeline animée
+  const parcoursItems = document.querySelectorAll('.parcours-item');
+  const parcoursObs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 140);
+        parcoursObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  parcoursItems.forEach(p => parcoursObs.observe(p));
+
+  // Cartes de stage animées
+  const stageItems = document.querySelectorAll('.stage-item');
+  const stageObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); stageObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.15 });
+  stageItems.forEach(s => stageObs.observe(s));
+
+  // Upload tableau de compétences
+  const dropZone = document.getElementById('dropZone');
+  const fileInput = document.getElementById('fileInput');
+  const filePreview = document.getElementById('filePreview');
+  const fileName = document.getElementById('fileName');
+  const fileRemove = document.getElementById('fileRemove');
+
+  function showFile(name) {
+    fileName.textContent = name;
+    filePreview.classList.add('show');
+  }
+  function clearFile() {
+    fileInput.value = '';
+    filePreview.classList.remove('show');
+    fileName.textContent = '—';
+  }
+
+  fileInput.addEventListener('change', (e) => {
+    if (e.target.files[0]) showFile(e.target.files[0].name);
+  });
+  fileRemove.addEventListener('click', (e) => { e.stopPropagation(); clearFile(); });
+
+  dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+  dropZone.addEventListener('drop', (e) => {
+    e.preventDefault(); dropZone.classList.remove('drag-over');
+    const file = e.dataTransfer.files[0];
+    if (file) showFile(file.name);
+  });
+</script>
+</body>
+</html>
